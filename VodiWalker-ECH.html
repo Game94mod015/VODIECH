@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" id="mtc" content="#070b12">
+<title>VodiWalker ECH</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23facc15'/%3E%3Cstop offset='1' stop-color='%2338bdf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='10' fill='url(%23g)'/%3E%3Cpath d='M10 16l4 4 8-8' stroke='%23071020' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<script>try{if(localStorage.getItem('vpn_theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
+<style>
+:root{
+  --r:18px;--r2:13px;--r3:10px;--pill:999px;
+  --e:cubic-bezier(.4,0,.2,1);--e2:cubic-bezier(.22,1,.36,1);
+  --t1:.15s;--t2:.25s;--t3:.42s;
+  --mono:'JetBrains Mono',monospace;--sans:'Vazirmatn',Tahoma,'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+  --grad-ac:linear-gradient(135deg,#facc15 0%,#38bdf8 100%);
+}
+html[data-theme=dark]{
+  --bg:#070b12;--s1:rgba(255,255,255,.038);--s2:rgba(255,255,255,.062);--s3:rgba(255,255,255,.098);
+  --ln:rgba(255,255,255,.075);--ln2:rgba(255,255,255,.16);
+  --tx:#eef2f8;--tx2:#9ba7b8;--tx3:#5f6b7d;
+  --ac:#facc15;--ac1:rgba(250,204,21,.18);--ac0:rgba(250,204,21,.09);
+  --bl:#38bdf8;--bl1:rgba(56,189,248,.16);--bl0:rgba(56,189,248,.07);
+  --vi:#f59e0b;--vi1:rgba(245,158,11,.16);--vi0:rgba(245,158,11,.07);
+  --cy:#22d3ee;--cy1:rgba(34,211,238,.16);--cy0:rgba(34,211,238,.07);
+  --am:#fde047;--am1:rgba(253,224,71,.18);--am0:rgba(253,224,71,.08);
+  --rd:#fb7185;--rd1:rgba(251,113,133,.15);--rd0:rgba(251,113,133,.07);
+  --sh:0 1px 2px rgba(0,0,0,.5),0 8px 32px rgba(56,189,248,.10),0 22px 60px rgba(0,0,0,.4);
+  --glass-bg:rgba(255,255,255,.055);--glass-bd:rgba(255,255,255,.1);--glass-hv:rgba(255,255,255,.09);
+}
+html[data-theme=light]{
+  --bg:#f5f8fd;--s1:rgba(255,255,255,.86);--s2:rgba(15,30,60,.045);--s3:rgba(15,30,60,.08);
+  --ln:rgba(15,30,60,.085);--ln2:rgba(15,30,60,.17);
+  --tx:#0f1a2b;--tx2:#526078;--tx3:#8894a8;
+  --ac:#eab308;--ac1:rgba(234,179,8,.16);--ac0:rgba(234,179,8,.08);
+  --bl:#0284c7;--bl1:rgba(2,132,199,.15);--bl0:rgba(2,132,199,.07);
+  --vi:#d97706;--vi1:rgba(217,119,6,.15);--vi0:rgba(217,119,6,.07);
+  --cy:#0891b2;--cy1:rgba(8,145,178,.15);--cy0:rgba(8,145,178,.07);
+  --am:#ca8a04;--am1:rgba(202,138,4,.16);--am0:rgba(202,138,4,.08);
+  --rd:#e11d48;--rd1:rgba(225,29,72,.13);--rd0:rgba(225,29,72,.06);
+  --sh:0 1px 2px rgba(15,30,60,.06),0 8px 28px rgba(2,132,199,.10),0 20px 50px rgba(15,30,60,.08);
+  --glass-bg:rgba(255,255,255,.74);--glass-bd:rgba(15,30,60,.13);--glass-hv:rgba(255,255,255,.95);
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html.lock,html.lock body{overflow:hidden}
+body{margin:0;min-height:100vh;font-family:var(--sans);font-size:14.5px;line-height:1.75;color:var(--tx);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html.tz,html.tz *{transition:background-color var(--t3) var(--e),color var(--t3) var(--e),border-color var(--t3) var(--e)!important}
+h1,h2,h3,p{margin:0}a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+svg{display:block;flex:none}
+code{font-family:var(--mono);font-size:.86em;padding:1px 5px;border-radius:6px;background:var(--s2);color:var(--tx2)}
+::selection{background:var(--ac1)}
+:focus-visible{outline:1.5px solid var(--bl);outline-offset:2px;border-radius:6px}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:9px;border:2px solid transparent;background-clip:content-box}
+.bgw{position:fixed;top:0;right:0;bottom:0;left:0;z-index:-1;background:var(--bg);overflow:hidden;pointer-events:none}
+.bgw::before{content:'';position:absolute;top:-10%;right:-10%;bottom:-10%;left:-10%;background:
+  radial-gradient(ellipse 70% 55% at 15% 5%, rgba(250,204,21,.20), transparent 60%),
+  radial-gradient(ellipse 60% 50% at 85% 95%, rgba(56,189,248,.20), transparent 60%);
+  filter:blur(20px)}
+html[data-theme=light] .bgw::before{opacity:.7}
+.bgw i{position:absolute;width:520px;height:520px;border-radius:50%;filter:blur(140px);background:radial-gradient(circle,rgba(250,204,21,.42),transparent 70%);opacity:.16}
+.bgw i:nth-child(1){top:-220px;right:-160px}
+.bgw i:nth-child(2){bottom:-240px;left:-160px;background:radial-gradient(circle,rgba(56,189,248,.42),transparent 70%);opacity:.14}
+.wrap{width:100%;max-width:940px;margin:0 auto;padding:22px 18px 56px;display:flex;flex-direction:column;gap:14px}
+.panel{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--s1);border:1px solid var(--ln);border-radius:var(--r);box-shadow:var(--sh);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);position:relative}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 2px}
+.bt h1{font-size:20px;font-weight:800;letter-spacing:-.015em;line-height:1.4;background:var(--grad-ac);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.bt small{display:block;font-size:12px;color:var(--tx3);font-weight:500;margin-top:2px}
+.ib{width:40px;height:40px;display:grid;place-items:center;border-radius:var(--r3);color:var(--tx2);background:var(--s2);border:1px solid var(--ln);transition:all var(--t2) var(--e)}
+.ib:hover{color:var(--ac);background:var(--ac0);border-color:var(--ac1);transform:rotate(15deg)}
+.mn{display:none}html[data-theme=dark] .mn{display:block}html[data-theme=dark] .sn{display:none}html[data-theme=light] .sn{display:block}html[data-theme=light] .mn{display:none}
+.sec{padding:18px;display:flex;flex-direction:column;gap:13px}
+.st{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.st h2{font-size:14px;font-weight:700;margin-left:auto}
+.si{width:32px;height:32px;flex:none;display:grid;place-items:center;border-radius:10px;color:var(--bl);background:var(--bl0);border:1px solid var(--bl1)}
+.cnt{font-family:var(--sans);font-size:11.5px;font-weight:600;color:var(--tx2);background:var(--s2);border:1px solid var(--ln);padding:3px 11px;border-radius:var(--pill)}
+.acts{display:flex;gap:7px;flex-wrap:wrap}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 15px;border-radius:var(--r2);font-size:13.5px;font-weight:600;color:var(--tx2);background:var(--s2);border:1px solid var(--ln);white-space:nowrap;transition:all var(--t2) var(--e2);-webkit-tap-highlight-color:transparent}
+.b svg{opacity:.9}
+.b:hover{background:var(--s3);border-color:var(--ln2);color:var(--tx);transform:translateY(-1px)}
+.b:active{transform:scale(.97)}
+.bs{height:32px;padding:0 13px;font-size:12.5px;border-radius:10px}
+.bl{height:46px;padding:0 26px;font-size:14.5px;border-radius:14px}
+.bp{color:#0a1120;background:var(--grad-ac);border-color:transparent;box-shadow:0 4px 18px rgba(56,189,248,.35),0 4px 18px rgba(250,204,21,.25),inset 0 1px 0 rgba(255,255,255,.35);font-weight:700}
+.bp:hover{color:#0a1120;background:var(--grad-ac);border-color:transparent;box-shadow:0 8px 28px rgba(56,189,248,.5),0 8px 28px rgba(250,204,21,.35);transform:translateY(-2px)}
+.bp:focus,.bp:active,.bp:focus-visible{background:var(--grad-ac)!important}
+html[data-theme=light] .bp,html[data-theme=light] .bp:hover{color:#0a1120}
+#ech-pst{color:var(--bl)}#ech-pst:hover{background:var(--bl0);border-color:var(--bl1);color:var(--bl)}
+#ech-fbt{color:var(--vi)}#ech-fbt:hover{background:var(--vi0);border-color:var(--vi1);color:var(--vi)}
+#ech-clr,#ech-crs{color:var(--rd)}#ech-clr:hover,#ech-crs:hover{background:var(--rd0);border-color:var(--rd1);color:var(--rd)}
+#ech-dl{color:var(--cy)}#ech-dl:hover{background:var(--cy0);border-color:var(--cy1);color:var(--cy)}
+#ech-jsonBtn{color:var(--vi)}#ech-jsonBtn:hover{background:var(--vi0);border-color:var(--vi1);color:var(--vi)}
+#ech-rst{color:var(--am)}#ech-rst:hover{background:var(--am0);border-color:var(--am1);color:var(--am)}
+.b[disabled]{opacity:.38;pointer-events:none}
+.b.ok{color:#0a1120!important;background:var(--ac)!important;border-color:var(--ac)!important}
+.b.no{color:var(--rd)!important;border-color:var(--rd1)!important;background:var(--rd0)!important}
+html[data-theme=light] .b.ok{color:#0a1120!important}
+.ta,.in{width:100%;border-radius:var(--r2);background:var(--s2);border:1px solid var(--ln);color:var(--tx);transition:border-color var(--t2) var(--e),background var(--t2) var(--e),box-shadow var(--t2) var(--e)}
+.ta{padding:14px;resize:vertical;font-family:var(--mono);font-size:12.2px;line-height:1.8;word-break:break-all;direction:ltr;text-align:left}
+.ta:focus,.in:focus{outline:none;border-color:var(--bl1);background:var(--s3);box-shadow:0 0 0 3px var(--bl0)}
+#ech-inp{min-height:140px}
+#ech-inp::placeholder{font-family:var(--sans);font-size:12.8px;color:var(--tx3);unicode-bidi:plaintext;direction:rtl;text-align:right}
+#ech-out{min-height:180px;border-color:var(--bl1)}
+.in{height:42px;padding:0 13px;font-size:13.5px}
+.drag{border-color:var(--bl)!important;background:var(--bl0)!important}
+.f{display:flex;flex-direction:column;gap:7px;min-width:0}
+.lb{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--tx2)}
+.opt{font-size:9.5px;font-weight:600;padding:2px 8px;border-radius:var(--pill);color:var(--tx3);background:var(--s2);border:1px solid var(--ln)}
+.hint{font-size:11.5px;color:var(--tx3)}
+.nt{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--tx3)}
+.acard{overflow:hidden}
+.ah{width:100%;display:flex;align-items:center;gap:11px;padding:16px 18px;text-align:right;transition:background var(--t1) var(--e)}
+.ah:hover{background:var(--s2)}
+.at{display:flex;flex-direction:column;gap:1px;margin-left:auto;min-width:0}
+.at b{font-size:13.5px;font-weight:600}.at small{font-size:11.5px;color:var(--tx3)}
+.cr{color:var(--tx3);transition:transform var(--t2) var(--e2)}.acard.open .cr{transform:rotate(180deg)}
+.acc{display:grid;grid-template-rows:0fr;transition:grid-template-rows var(--t3) var(--e2)}.acard.open .acc{grid-template-rows:1fr}
+.clip{overflow:hidden;min-height:0}
+.inr{padding:16px 18px 18px;display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--ln);opacity:0;transform:translateY(-4px);transition:opacity var(--t2) var(--e),transform var(--t2) var(--e2)}
+.acard.open .inr{opacity:1;transform:none;transition-delay:.05s}
+.protos{display:flex;gap:6px;flex-wrap:wrap}
+.ptag{font-size:10.5px;font-weight:600;font-style:normal;padding:3px 10px;border-radius:var(--pill);color:var(--tx3);background:var(--s2);border:1px solid var(--ln)}
+.ptag.ac{color:var(--bl);background:var(--bl0);border-color:var(--bl1)}
+.sum{font-size:12.6px;font-weight:600;color:var(--tx2)}
+.errs{display:flex;flex-direction:column;gap:7px}.errs:empty{display:none}
+.er{font-size:12px;color:var(--rd);background:var(--rd0);border:1px solid var(--rd1);border-radius:var(--r3);padding:10px 13px;word-break:break-all;direction:rtl;text-align:right}
+.pv{display:flex;align-items:flex-start;gap:11px;padding:15px 17px}
+.pv svg{color:var(--bl);flex:none;margin-top:2px}
+.pv div{display:flex;flex-direction:column;gap:1px}
+.pv b{font-size:13px;font-weight:600;color:var(--tx)}.pv span{font-size:12.2px;color:var(--tx3)}
+.foot{display:flex;flex-direction:column;align-items:center;gap:12px;padding-top:8px}
+.dev{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--tx2);direction:ltr;unicode-bidi:embed}
+.lk{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.lk a{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 16px;border-radius:var(--pill);font-size:12.5px;font-weight:600;color:var(--tx2);background:var(--glass-bg);border:1px solid var(--glass-bd);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:all var(--t2) var(--e2)}
+.lk a:hover{color:var(--bl);background:var(--glass-hv);border-color:var(--bl1);transform:translateY(-2px)}
+.copy{font-size:11.5px;color:var(--tx3)}
+.dev-link{color:var(--bl);font-weight:700;text-decoration:none;border-bottom:1px solid var(--bl1)}
+.lk a.tg-lk{color:var(--cy)}
+.lk a.tg-lk:hover{color:var(--cy);border-color:var(--cy1)}
+@media(min-width:640px){.wrap{padding:28px 24px 64px;gap:16px}.sec{padding:20px 22px}.ah{padding:18px 22px}.inr{padding:18px 22px 20px}#ech-inp{min-height:160px}.bt h1{font-size:21px}}
+@media(max-width:430px){.wrap{padding:16px 13px 46px;gap:12px}.sec{padding:15px}.ah{padding:14px 15px}.inr{padding:15px}.bl{width:100%}.at small{display:none}.bt h1{font-size:18px}}
+@supports not (grid-template-rows:0fr){.acc{display:block;max-height:0;overflow:hidden;transition:max-height var(--t3) var(--e2)}.acard.open .acc{max-height:1400px}.inr{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}
+
+#loading-overlay{position:fixed;top:0;right:0;bottom:0;left:0;z-index:10000;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(15,25,45,.94),rgba(4,8,16,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:20px;opacity:1;transition:opacity .4s ease;cursor:wait;-webkit-user-select:none;user-select:none;touch-action:none}
+#loading-overlay.hidden{opacity:0;pointer-events:none}
+.loading-card{position:relative;width:min(440px,100%);text-align:center;padding:36px 26px 28px;border:1px solid var(--ln2);border-radius:22px;background:linear-gradient(160deg,rgba(250,204,21,.10),rgba(56,189,248,.06) 50%,rgba(34,211,238,.08));box-shadow:0 20px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);animation:loadingCardIn .7s var(--e2) both}
+.loading-logo-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px}
+.loading-logo{font-size:52px;line-height:1;animation:loadingPulse 1.6s ease-in-out infinite;filter:drop-shadow(0 0 22px rgba(250,204,21,.65))}
+.loading-ring{position:absolute;top:-14px;right:-14px;bottom:-14px;left:-14px;border-radius:50%;border:2px solid transparent;border-top-color:#facc15;border-right-color:#38bdf8;animation:spin 1.4s linear infinite}
+.loading-title{font-size:26px;font-weight:800;margin-bottom:14px;background:linear-gradient(135deg,#fde047,#facc15 35%,#38bdf8 70%,#22d3ee);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.loading-text{font-size:13.5px;color:var(--tx2);line-height:2;overflow:hidden;white-space:nowrap;border-left:2px solid #38bdf8;width:0;margin:0 auto;animation:typeReveal 2.2s steps(42,end) forwards}
+#loadingText2{animation-delay:1.1s}
+.loading-tg{display:inline-flex;align-items:center;justify-content:center;margin-top:18px;padding:10px 20px;border-radius:999px;color:#0a1120;background:var(--grad-ac);border:0;font-weight:700;font-size:13px;box-shadow:0 6px 20px rgba(56,189,248,.45),0 6px 20px rgba(250,204,21,.3);animation:loadingFade .8s 1.9s both}
+.loading-bar{height:5px;margin:22px auto 10px;width:min(300px,88%);overflow:hidden;border-radius:99px;background:var(--s3);position:relative}
+.loading-bar span{display:block;height:100%;width:0;background:var(--grad-ac);animation:loadingBar 6s linear forwards;border-radius:99px;box-shadow:0 0 12px rgba(250,204,21,.55)}
+.loading-count{font-family:var(--mono);font-size:13px;color:var(--tx2);font-weight:600}
+.loading-skip{font-size:10.5px;color:var(--tx3);margin-top:14px;opacity:.65}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes loadingCardIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes loadingPulse{50%{transform:scale(1.12) rotate(4deg);filter:drop-shadow(0 0 28px rgba(56,189,248,.75))}}
+@keyframes typeReveal{from{width:0}to{width:100%}}
+@keyframes loadingFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes loadingBar{from{width:0}to{width:100%}}
+</style>
+</head>
+<body>
+<div class="bgw"><i></i><i></i></div>
+
+<div id="loading-overlay" role="dialog" aria-modal="true" aria-label="VodiWalker">
+  <div class="loading-card">
+    <div class="loading-logo-wrap">
+      <div class="loading-logo">⚡</div>
+      <div class="loading-ring"></div>
+    </div>
+    <div class="loading-title">VodiWalker</div>
+    <div class="loading-text" id="loadingText">این برنامه توسط تیم VodiWalker ساخته شده</div>
+    <div class="loading-text" id="loadingText2">برای حمایت از آن به کانال ما جوین شوید.</div>
+    <a class="loading-tg" href="https://t.me/vodiwalkervpn03" target="_blank" rel="noopener">عضویت در کانال تلگرام ↗</a>
+    <div class="loading-bar"><span></span></div>
+    <div class="loading-count" id="loadingCount">۶</div>
+    <div class="loading-skip">لطفاً چند ثانیه صبر کنید…</div>
+  </div>
+</div>
+
+<div class="wrap">
+<header class="hd">
+  <div class="bt">
+    <h1>VodiWalker ECH</h1>
+    <small>ساخت کانفیگ‌های ECH توسط VodiWalker</small>
+  </div>
+  <button class="ib" id="th" type="button" aria-label="تغییر تم">
+    <svg class="sn" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="mn" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+  </button>
+</header>
+
+<div class="panel">
+<div class="card pv" style="border-color: var(--bl1); background: linear-gradient(135deg,var(--bl0),var(--ac0));">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--bl)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9.5 12l1.7 1.7 3.3-3.4"/></svg>
+  <div><b>خروجی فقط ECH + JSON</b><span>نام اصلی کانفیگ حفظ می‌شود. برای هر خط ECH یک نسخه ساخته می‌شود.</span></div>
+</div>
+
+<section class="card sec" id="ech-dz">
+  <div class="st">
+    <span class="si"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+    <h2>کانفیگ‌های ورودی</h2>
+    <span class="cnt" id="ech-cnt">۰ خط</span>
+    <div class="acts">
+      <button class="b bs" id="ech-pst" type="button"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>چسباندن</button>
+      <button class="b bs" id="ech-fbt" type="button"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>فایل</button>
+      <button class="b bs" id="ech-clr" type="button"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>پاک کردن</button>
+    </div>
+  </div>
+  <textarea class="ta" id="ech-inp" spellcheck="false" placeholder="کانفیگ‌های trojan:// یا vless:// یا لینک ساب — خروجی فقط ECH (نام اصلی حفظ می‌شود)"></textarea>
+  <input type="file" id="ech-fin" accept=".txt,.json,.conf,.list,text/plain,application/json" hidden>
+  <div class="row">
+    <span class="nt"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>خروجی: فقط ECH · برای هر خط ECH یک نسخه</span>
+    <button class="b bp bl" id="ech-go" type="button"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>ساخت ECH + JSON</button>
+  </div>
+</section>
+
+<section class="card acard" id="ech-adv">
+  <button class="ah" id="ech-advb" type="button" aria-expanded="false">
+    <span class="si"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span>
+    <span class="at"><b>تنظیمات پیشرفته ECH</b><small>لیست ECH · پسوند نام</small></span>
+    <svg class="cr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="acc"><div class="clip"><div class="inr">
+    <div class="f">
+      <label class="lb" for="ech-list">لیست ECH ها <span class="opt">هر خط یک ECH کامل</span></label>
+      <textarea class="ta" id="ech-list" rows="4" spellcheck="false" dir="ltr">cloudflare-ech.com+udp://1.1.1.1
+cloudflare-ech.com+udp://8.8.8.8</textarea>
+      <span class="hint">هر خط = یک ECH کامل — برای هر خط یک نسخه کانفیگ ساخته می‌شود. مثال: <code>cloudflare-ech.com+udp://1.1.1.1</code></span>
+    </div>
+    <div class="f">
+      <label class="lb" for="ech-suffix">پسوند نام &nbsp;<code>template</code></label>
+      <input class="in" id="ech-suffix" spellcheck="false" value=" vodiwalker" dir="ltr" placeholder=" vodiwalker">
+      <span class="hint">نام خروجی‌ها به‌صورت خودکار: <code>vodiwalker.ech1</code>، <code>vodiwalker.ech2</code>، …</span>
+    </div>
+    <div class="row">
+      <div class="protos"><i class="ptag ac">vless ✦ کامل</i><i class="ptag ac">trojan ✦ کامل</i></div>
+      <button class="b bs" id="ech-rst" type="button"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 101.85-4.11L1 10"/></svg>بازنشانی</button>
+    </div>
+  </div></div></div>
+</section>
+
+<section class="card sec" id="ech-res" hidden>
+  <div class="st">
+    <span class="si"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+    <h2>خروجی</h2>
+    <span class="cnt" id="ech-ocnt">۰</span>
+    <div class="acts">
+      <button class="b bs bp" id="ech-cpy" type="button" disabled><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>کپی همه</button>
+      <button class="b bs" id="ech-dl" type="button" disabled><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>دانلود TXT</button>
+      <button class="b bs" id="ech-jsonBtn" type="button" disabled><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v1a2 2 0 002 2h12a2 2 0 002-2v-1"/><polyline points="8 12 12 8 16 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>خروجی JSON</button>
+      <button class="b bs" id="ech-crs" type="button"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>پاک کردن</button>
+    </div>
+  </div>
+  <p class="sum" id="ech-sum">—</p>
+  <div class="errs" id="ech-errs"></div>
+  <textarea class="ta" id="ech-out" spellcheck="false" readonly></textarea>
+</section>
+
+<div class="card pv">
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  <div><b>ECH = Encrypted Client Hello</b><span>پارامتر <code>ech=&lt;value&gt;</code> به هر کانفیگ اضافه می‌شود و در JSON با <code>echConfigList</code> ست می‌شود.</span></div>
+</div>
+</div>
+
+<footer class="foot">
+  <p class="dev" dir="ltr">Developed by <a href="https://t.me/vodiwalkervpn03" target="_blank" rel="noopener" class="dev-link">VodiWalker</a> ⚡</p>
+  <div class="lk">
+    <a class="tg-lk" href="https://t.me/vodiwalkervpn03" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>کانال تلگرام VodiWalker</a>
+  </div>
+  <span class="copy">© <span id="yr"></span> — VodiWalker</span>
+</footer>
+</div>
+
+<script>
+(function(){
+  var overlay=document.getElementById('loading-overlay');
+  if(!overlay) return;
+  var root=document.documentElement,wrap=document.querySelector('.wrap');
+  var TOTAL=6000,start=Date.now(),done=false;
+  var count=document.getElementById('loadingCount');
+  var faMap=['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  root.className+=' lock';
+  try{if(wrap){wrap.setAttribute('aria-hidden','true');wrap.inert=true;}}catch(e){}
+  function dismiss(){
+    if(done) return; done=true;
+    clearInterval(tick);
+    try{root.className=root.className.replace(/\s*\block\b/g,'');if(wrap){wrap.removeAttribute('aria-hidden');wrap.inert=false;}}catch(e){}
+    try{overlay.className+=' hidden';}catch(e){}
+    setTimeout(function(){try{if(overlay.parentNode)overlay.parentNode.removeChild(overlay);}catch(e){}},500);
+  }
+  function update(){
+    var left=Math.max(Math.ceil((TOTAL-(Date.now()-start))/1000),0);
+    if(count) count.textContent=String(left).replace(/\d/g,function(d){return faMap[+d];});
+    if(Date.now()-start>=TOTAL) dismiss();
+  }
+  var tick=setInterval(update,200);
+  document.addEventListener('visibilitychange',update);
+  setTimeout(dismiss,TOTAL+4000); /* failsafe only */
+  update();
+})();
+</script>
+
+<script>
+(function(){
+'use strict';
+
+var FM_STR='{"tcp":[{"type":"fragment","settings":{"packets":"tlshello","lengths":["0","104","1"],"delays":["0"],"maxSplit":"0"}},{"type":"fragment","settings":{"packets":"1-1","lengths":["114","1"],"delays":["1"],"maxSplit":"11"}}]}';
+var CS_STR='TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256';
+var DEF={cs:CS_STR,fm:FM_STR};
+var ECH_DEF={list:'cloudflare-ech.com+udp://1.1.1.1\ncloudflare-ech.com+udp://8.8.8.8',suffix:' vodiwalker'};
+var ORDER=['cs','path','security','alpn','encryption','fm','insecure','host','fp','type','allowInsecure','sni'];
+var ORDER_ECH=['path','security','alpn','encryption','insecure','host','fp','ech','type','allowInsecure','sni','cs','fm'];
+var UUID_RE=/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+var PROTO_START=/^(vless|vmess|trojan|ss|hysteria2?|tuic|naive\+https?|wireguard):\/\//i;
+var ECH_LS_KEY='vpn_ech_prefs_v1';
+var SUB_URL_KEYS=['url','suburl','sub_url','sub-url','subscription','subscribe','sub','subs','link','links','feed','feeds','source','sources','provider','providers','mirror','mirrors','backup','backupurl','backup_url','backup-url','config','configs','configurl','config_url','suburls','sub_urls','suburl_list','sub_list','raw','raw_url'];
+var SUB_URL_HEURISTIC=/(sub|clash|v2ray|v2rayng|sing-?box|shadow|provider|feed|source|mirror|backup|raw|config)/i;
+var BASE64_HINT_RE=/(content|data|body|raw|b64|base64|payload|config|sub|list|text|value)/i;
+var BASE64_SKIP_RE=/(icon|image|avatar|thumb|logo|photo|pic|thumbnail|favicon|screenshot)/i;
+var SUB_FETCH_DEPTH=3,JSON_MAX_DEPTH=200,FETCH_TIMEOUT_MS=7000,FETCH_RETRY_PER_PROXY=1;
+
+function $(id){return document.getElementById(id);}
+function fa(n){return String(n).replace(/\d/g,function(d){return'۰۱۲۳۴۵۶۷۸۹'[+d];});}
+function dec(s){try{return decodeURIComponent(s);}catch(e){return s;}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function paramBool(v){if(v===undefined||v===null)return false;var s=String(v).trim().toLowerCase();return s==='1'||s==='true'||s==='yes'||s==='on';}
+function stripBom(s){return String(s||'').replace(/^\uFEFF/,'');}
+
+function flash(btn,msg,kind){
+  if(!btn) return;
+  if(!btn._fh) btn._fh = btn.getAttribute('data-orig-html') || btn.innerHTML;
+  if(!btn.getAttribute('data-orig-html')) btn.setAttribute('data-orig-html', btn.innerHTML);
+  btn.innerHTML = msg;
+  btn.classList.remove('ok','no');
+  if(kind) btn.classList.add(kind);
+  clearTimeout(btn._ft);
+  btn._ft = setTimeout(function(){
+    btn.innerHTML = btn.getAttribute('data-orig-html') || btn._fh;
+    btn.classList.remove('ok','no');
+  }, 1500);
+}
+
+function debounce(fn,ms){var t;return function(){var a=arguments,c=this;clearTimeout(t);t=setTimeout(function(){fn.apply(c,a);},ms);};}
+function makeCancelToken(){var ctrl=(typeof AbortController!=='undefined')?new AbortController():null;return{get signal(){return ctrl?ctrl.signal:undefined;},get cancelled(){return ctrl?ctrl.signal.aborted:false;},cancel:function(){try{if(ctrl)ctrl.abort();}catch(e){}}};}
+
+function looksLikeBase64(s){var t=stripBom(s).replace(/[\r\n\t ]/g,'');if(t.length<16)return false;if(t.length%4===1)return false;if(!/^[A-Za-z0-9+/=_-]+$/.test(t))return false;return true;}
+function b64decode(s){try{var raw=stripBom(s);if(!looksLikeBase64(raw))return '';var t=raw.replace(/[\r\n\t ]/g,'').replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';var bin=atob(t);var bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return new TextDecoder('utf-8',{fatal:false}).decode(bytes);}catch(e){return '';}}
+function isProbablyJson(text){var t=stripBom(text).trim();if(!t)return false;if(t.charAt(0)!=='{'&&t.charAt(0)!=='[')return false;try{JSON.parse(t);return true;}catch(e){return false;}}
+function looksLikeYaml(text){if(!text)return false;var t=stripBom(text);if(isProbablyJson(t))return false;if(/^[ \t]*proxies[ \t]*:/m.test(t))return true;if(/^[ \t]*proxy-providers[ \t]*:/m.test(t))return true;if(/^[ \t]*Proxy[ \t]*:/m.test(t))return true;if(/^[ \t]*mixed-port[ \t]*:/m.test(t))return true;if(/^[ \t]*socks-port[ \t]*:/m.test(t)&&/^[ \t]*port[ \t]*:/m.test(t))return true;if(/^[ \t]*proxy-groups[ \t]*:/m.test(t))return true;return false;}
+
+function pq(q){var o=[];if(!q)return o;q.split('&').forEach(function(p){if(!p)return;var i=p.indexOf('=');o.push({k:dec(i<0?p:p.slice(0,i)),v:i<0?'':dec(p.slice(i+1))});});return o;}
+function setParam(p,k,v){var lk=k.toLowerCase(),found=false;for(var i=p.length-1;i>=0;i--){if(p[i].k.toLowerCase()===lk){if(found){p.splice(i,1);continue;}p[i]={k:k,v:v};found=true;}}if(!found)p.push({k:k,v:v});}
+function removeParam(p,k){var lk=k.toLowerCase();for(var i=p.length-1;i>=0;i--){if(p[i].k.toLowerCase()===lk)p.splice(i,1);}}
+function buildQSWith(p,orderArr){var idx={};orderArr.forEach(function(k,i){idx[k]=i;});var a=[],b=[];p.forEach(function(x){(idx[x.k.toLowerCase()]!==undefined?a:b).push(x);});a.sort(function(x,y){return idx[x.k.toLowerCase()]-idx[y.k.toLowerCase()];});return a.concat(b).map(function(x){return encodeURIComponent(x.k)+'='+encodeURIComponent(x.v);}).join('&');}
+function parseAuth(au){var host=au,port='';if(au.charAt(0)==='['){var c=au.indexOf(']');if(c<0)throw new Error('IPv6 نامعتبر');host=au.slice(0,c+1);if(au.charAt(c+1)===':')port=au.slice(c+2);}else{var c2=au.lastIndexOf(':');if(c2>0){host=au.slice(0,c2);port=au.slice(c2+1);}}if(!host||!host.trim())throw new Error('آدرس سرور خالی است');return{host:host,port:port};}
+function splitUrl(raw,skip){var b=raw.slice(skip),frag='';var qi=b.indexOf('?'),hi=-1;if(qi>=0){hi=b.indexOf('#',qi);}else{hi=b.indexOf('#');}if(hi>=0){frag=b.slice(hi+1);b=b.slice(0,hi);}var q='',x=b.indexOf('?');if(x>=0){q=b.slice(x+1);b=b.slice(0,x);}return{body:b,q:q,frag:frag};}
+function parseVless(raw){var s=splitUrl(raw,8);var a=s.body.lastIndexOf('@');if(a<0)throw new Error('@ وجود ندارد');var id=dec(s.body.slice(0,a)).trim(),au=s.body.slice(a+1).trim();if(!UUID_RE.test(id))throw new Error('UUID نامعتبر');var hp=parseAuth(au);return{proto:'vless',id:id,host:hp.host,port:hp.port,p:pq(s.q),f:s.frag};}
+function parseTrojan(raw){var s=splitUrl(raw,9);var a=s.body.lastIndexOf('@');if(a<0)throw new Error('@ وجود ندارد');var pass=dec(s.body.slice(0,a)).trim(),au=s.body.slice(a+1).trim();if(!pass)throw new Error('رمز عبور خالی');var hp=parseAuth(au);return{proto:'trojan',pass:pass,host:hp.host,port:hp.port,p:pq(s.q),f:s.frag};}
+function buildVless(c,o){var qs=buildQSWith(c.p,o||ORDER);return'vless://'+c.id+'@'+c.host+(c.port?':'+c.port:'')+(qs?'?'+qs:'')+(c.f?'#'+c.f:'');}
+function buildTrojan(c,o){var qs=buildQSWith(c.p,o||ORDER);return'trojan://'+encodeURIComponent(c.pass)+'@'+c.host+(c.port?':'+c.port:'')+(qs?'?'+qs:'')+(c.f?'#'+c.f:'');}
+
+function isCommentLine(line){var t=String(line||'').trim();if(!t)return true;if(t.charAt(0)==='#'||t.charAt(0)===';')return true;if(t.indexOf('//')===0)return true;return false;}
+function extractLines(text){var found=[],seen={};function tryAdd(s){s=String(s||'').trim().replace(/[,;،؛]+$/,'');if(!s)return;if(PROTO_START.test(s)&&!seen[s]){seen[s]=1;found.push(s);}}text.split(/\r?\n/).forEach(function(line){if(isCommentLine(line))return;var l=line.trim();if(!l)return;if(PROTO_START.test(l)){tryAdd(l);return;}l.split(/[\s,;،؛]+/).forEach(function(tok){if(PROTO_START.test(tok))tryAdd(tok);});});return found;}
+
+function isSubUrlKey(k){if(!k)return false;var h=String(k).toLowerCase().trim();for(var i=0;i<SUB_URL_KEYS.length;i++)if(h===SUB_URL_KEYS[i])return true;return false;}
+function shouldTryBase64(k,v){if(!k)return true;var h=String(k).toLowerCase();if(BASE64_SKIP_RE.test(h))return false;if(BASE64_HINT_RE.test(h))return true;if(!v)return false;var s=String(v);if(s.length>512&&/^[A-Za-z0-9+/=_\-\s]+$/.test(s))return true;return false;}
+
+function walkJsonForConfigs(obj,configs,subs,seen,keyHint,depth){
+  depth=depth||0;if(depth>JSON_MAX_DEPTH)return;if(obj===null||obj===undefined)return;
+  if(typeof obj==='string'){
+    if(PROTO_START.test(obj)){if(!seen[obj]){seen[obj]=1;configs.push(obj);}return;}
+    if(/^https?:\/\//i.test(obj)||/^www\./i.test(obj)){if(!seen[obj]&&(isSubUrlKey(keyHint)||SUB_URL_HEURISTIC.test(String(keyHint||'')))){seen[obj]=1;subs.push(obj);}return;}
+    if(shouldTryBase64(keyHint,obj)){var d=b64decode(obj);if(d&&d!==obj){extractLines(d).forEach(function(l){if(!seen[l]){seen[l]=1;configs.push(l);}});return;}}
+    extractLines(obj).forEach(function(l){if(!seen[l]){seen[l]=1;configs.push(l);}});return;
+  }
+  if(Array.isArray(obj)){obj.forEach(function(v){walkJsonForConfigs(v,configs,subs,seen,keyHint,depth+1);});return;}
+  if(typeof obj==='object'){Object.keys(obj).forEach(function(k){walkJsonForConfigs(obj[k],configs,subs,seen,k,depth+1);});}
+}
+
+function extract(text){
+  var result={configs:[],subs:[],yamlDetected:false};
+  var t=stripBom(text);if(!t.trim())return result;
+  var trimmed=t.trim();var seen={};
+  if(looksLikeYaml(trimmed))result.yamlDetected=true;
+  if(!/^(https?:\/\/|www\.)\S+$/i.test(trimmed)){extractLines(trimmed).forEach(function(l){if(!seen[l]){seen[l]=1;result.configs.push(l);}});}
+  if(trimmed.charAt(0)==='{'||trimmed.charAt(0)==='['){try{walkJsonForConfigs(JSON.parse(trimmed),result.configs,result.subs,seen,'',0);}catch(e){}}
+  var d=b64decode(trimmed);
+  if(d&&d!==trimmed){
+    if(d.charAt(0)==='{'||d.charAt(0)==='['){try{walkJsonForConfigs(JSON.parse(d),result.configs,result.subs,seen,'',0);}catch(e){}}
+    extractLines(d).forEach(function(l){if(!seen[l]){seen[l]=1;result.configs.push(l);}});
+  }
+  return result;
+}
+
+function fetchWithTimeout(u,ms,ct){return new Promise(function(res,rej){if(ct&&ct.cancelled){rej(new Error('لغو شد'));return;}var timer=setTimeout(function(){rej(new Error('timeout'));},ms);var opts={};if(ct&&ct.signal)opts.signal=ct.signal;fetch(u,opts).then(function(r){clearTimeout(timer);res(r);}).catch(function(e){clearTimeout(timer);if(e&&e.name==='AbortError')rej(new Error('لغو شد'));else rej(e);});});}
+
+function fetchSub(url,ct){
+  var proxies=[{prefix:''},{prefix:'https://corsproxy.io/?'},{prefix:'https://api.allorigins.win/raw?url='},{prefix:'https://proxy.cors.sh/'},{prefix:'https://cors-anywhere.herokuapp.com/'},{prefix:'https://thingproxy.freeboard.io/fetch/'},{prefix:'https://r.jina.ai/'}];
+  if(!/^https?:\/\//i.test(url))url='https://'+url;
+  function attempt(target,rl){return fetchWithTimeout(target,FETCH_TIMEOUT_MS,ct).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text();}).catch(function(err){if(ct&&ct.cancelled)throw err;if(rl>0)return new Promise(function(res){setTimeout(res,500);}).then(function(){return attempt(target,rl-1);});throw err;});}
+  function tryProxy(i){if(ct&&ct.cancelled)return Promise.reject(new Error('لغو شد'));if(i>=proxies.length)return Promise.reject(new Error('همه پروکسی‌ها ناموفق'));var p=proxies[i];var target=p.prefix?p.prefix+encodeURIComponent(url):url;return attempt(target,FETCH_RETRY_PER_PROXY).catch(function(err){if(ct&&ct.cancelled)throw err;return tryProxy(i+1);});}
+  return tryProxy(0).then(function(txt){var r=extract(txt);if(!r.configs.length&&!r.subs.length)throw new Error('محتوای ساب قابل استفاده نبود');return r;});
+}
+
+function fetchSubsDeep(urls,depth,seenUrls,allConfigs,allFailed,ct){
+  if(ct&&ct.cancelled)return Promise.resolve();
+  if(depth<=0||!urls.length)return Promise.resolve();
+  var newUrls=urls.filter(function(u){return !seenUrls[u];});
+  newUrls.forEach(function(u){seenUrls[u]=1;});
+  if(!newUrls.length)return Promise.resolve();
+  return Promise.all(newUrls.map(function(u){
+    if(ct&&ct.cancelled)return [];
+    return fetchSub(u,ct).then(function(r){r.configs.forEach(function(c){allConfigs.push(c);});return r.subs;}).catch(function(e){if(ct&&ct.cancelled)return [];allFailed.push(u+' — '+e.message);return [];});
+  })).then(function(arrs){
+    if(ct&&ct.cancelled)return;
+    var nested=[];arrs.forEach(function(a){nested=nested.concat(a);});
+    return fetchSubsDeep(nested,depth-1,seenUrls,allConfigs,allFailed,ct);
+  });
+}
+
+function copyText(t){if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(t).then(function(){return true;}).catch(function(){return legacyCopy(t);});return Promise.resolve(legacyCopy(t));}
+function legacyCopy(t){var el=document.createElement('textarea');el.value=t;el.style.cssText='position:fixed;top:-9999px;left:-9999px';document.body.appendChild(el);el.select();var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(el);return ok;}
+function truncateForDisplay(text,maxLines){var lines=text.split('\n');if(lines.length<=maxLines)return text;var shown=lines.slice(0,maxLines).join('\n');return shown+'\n... '+fa(lines.length-maxLines)+' مورد دیگر (برای کپی کامل از دکمه کپی استفاده کنید)';}
+
+function buildStreamSettings(params,network,security,echValue,defaultHost){
+  var path=params.path||'/';
+  var hostHeader=params.host||defaultHost||'';
+  var sni=params.sni||hostHeader;
+  var fpVal=params.fp||'chrome';
+  var allowInsecure=paramBool(params.insecure)||paramBool(params.allowinsecure);
+  var alpnArr;
+  if(params.alpn){alpnArr=params.alpn.split(',').map(function(x){return x.trim();}).filter(Boolean);if(!alpnArr.length)alpnArr=['http/1.1'];}
+  else if(network==='xhttp'){alpnArr=['h2','h3'];}
+  else{alpnArr=['http/1.1'];}
+  var ss={network:network,security:security};
+  ss.sockopt={domainStrategy:'UseIP',happyEyeballs:{interleave:2,maxConcurrentTry:4,prioritizeIPv6:false,tryDelayMs:250}};
+  if(security==='tls'||security==='xtls'){
+    var tlsObj={allowInsecure:allowInsecure,alpn:alpnArr};
+    if(security==='tls'&&echValue)tlsObj.echConfigList=echValue;
+    tlsObj.fingerprint=fpVal;tlsObj.serverName=sni;
+    if(security==='tls')ss.tlsSettings=tlsObj;else ss.xtlsSettings=tlsObj;
+  }else if(security==='reality'){
+    ss.realitySettings={show:false,dest:params.dest||'',xver:parseInt(params.xver,10)||0,serverNames:sni?[sni]:[],privateKey:params.privatekey||'',publicKey:params.pbk||'',shortIds:(params.sid||'').split(',').map(function(x){return x.trim();}).filter(Boolean),fingerprint:fpVal,spiderX:params.spx||''};
+  }
+  if(network==='ws'){ss.wsSettings={host:hostHeader,path:path};}
+  else if(network==='grpc'){ss.grpcSettings={serviceName:path.replace(/^\/+/,'')||''};if(paramBool(params.multimode))ss.grpcSettings.multiMode=true;}
+  else if(network==='xhttp'){ss.xhttpSettings={host:hostHeader,mode:params.mode||'stream-up',path:path};}
+  else if(network==='tcp'){ss.tcpSettings={header:{type:params.headertype||'none'}};}
+  else if(network==='http'||network==='h2'){ss.httpSettings={host:hostHeader?[hostHeader]:[],path:path};}
+  else if(network==='quic'){ss.quicSettings={security:'none',key:'',header:{type:'none'}};}
+  return ss;
+}
+function buildMux(params){var enabled=false,concurrency=-1;if(params.mux!==undefined&&params.mux!==''){var mv=String(params.mux).toLowerCase();if(mv==='1'||mv==='true'||mv==='yes'){enabled=true;}else if(/^\d+$/.test(mv)&&parseInt(mv,10)>1){enabled=true;concurrency=parseInt(mv,10);}}if(params.muxconcurrency){var mc=parseInt(params.muxconcurrency,10);if(!isNaN(mc)){enabled=true;concurrency=mc;}}return{concurrency:concurrency,enabled:enabled};}
+function findSubUrls(lines){var subs=[];lines.forEach(function(l){if(isCommentLine(l))return;if(/^(https?:\/\/|www\.)/i.test(l)&&!PROTO_START.test(l))subs.push(l);});return subs;}
+
+/* ECH MODULE */
+(function(){
+  var echInp=$('ech-inp'),echOut=$('ech-out'),echRes=$('ech-res'),echSum=$('ech-sum'),echErrs=$('ech-errs'),echCnt=$('ech-cnt'),echOcnt=$('ech-ocnt'),echGo=$('ech-go'),echDz=$('ech-dz'),echCpy=$('ech-cpy'),echDl=$('ech-dl'),echJsonBtn=$('ech-jsonBtn'),echAdv=$('ech-adv'),echAdvb=$('ech-advb'),echListEl=$('ech-list'),echSuffixEl=$('ech-suffix');
+  if(!echInp||!echGo){console.error('[VodiWalker] ECH elements missing');return;}
+  var echNormalOut='',echJsonOut='',echJsonBase='',echIsJson=false,echRunning=false,echPendingRerun=false,lastProcessScroll=true;
+
+  function loadEchPrefs(){try{var r=localStorage.getItem(ECH_LS_KEY);if(!r)return null;var o=JSON.parse(r);return(o&&typeof o==='object')?o:null;}catch(e){return null;}}
+  function saveEchPrefs(){try{localStorage.setItem(ECH_LS_KEY,JSON.stringify({list:echListEl.value,suffix:echSuffixEl.value}));}catch(e){}}
+  var saved=loadEchPrefs();
+  if(saved){if(typeof saved.list==='string'&&saved.list.trim())echListEl.value=saved.list;if(typeof saved.suffix==='string')echSuffixEl.value=saved.suffix;}
+
+  function setBtns(en){echCpy.disabled=echDl.disabled=echJsonBtn.disabled=!en;}
+  function resetJson(){echIsJson=false;echJsonOut='';echJsonBase='';echJsonBtn.innerHTML='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v1a2 2 0 002 2h12a2 2 0 002-2v-1"/><polyline points="8 12 12 8 16 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg> خروجی JSON';}
+  function updateCount(){var n=echInp.value.split(/\r?\n/).filter(function(l){return l.trim();}).length;echCnt.textContent=fa(n)+' خط';}
+  echInp.addEventListener('input',updateCount);updateCount();
+
+  function getEchList(){var raw=(echListEl.value||'').trim();if(!raw)return{list:[],dupIps:0};var list=raw.split(/\r?\n/).map(function(x){return x.trim();}).filter(Boolean);var seen={},out=[],ipSeen={},dupIps=0;list.forEach(function(x){if(seen[x])return;seen[x]=1;var m=String(x).match(/udp:\/\/([^+\s]+)/i);var ip=m?m[1].replace(/^\[|\]$/g,''):x;if(ipSeen[ip])dupIps++;else ipSeen[ip]=1;out.push(x);});return{list:out,dupIps:dupIps};}
+  function extractIpFromEch(v){var m=String(v||'').match(/udp:\/\/([^+\s]+)/i);return m?m[1].replace(/^\[|\]$/g,''):v;}
+  function extractDomainFromEch(v){var s=String(v||'');var i=s.indexOf('+');return i>=0?s.slice(0,i):s;}
+  function buildRemark(){var emojis=['⚡','🚀','🔥','🛡️','💎','🌐','✨','🟢','🔰','👑','🎯','🦾'];return 'vodiwalker.ech'+seq.num+' '+emojis[Math.floor(Math.random()*emojis.length)];}
+  var seq={num:1};
+
+  function runProcess(scroll){lastProcessScroll=!!scroll;processEch();}
+  var debounced=debounce(function(){runProcess(false);},250);
+
+  echGo.addEventListener('click',function(){
+    if(echGo._running){if(echGo._cancelToken)echGo._cancelToken.cancel();return;}
+    runProcess(true);
+  });
+  echInp.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runProcess(true);}});
+  echAdvb.addEventListener('click',function(){var o=echAdv.classList.toggle('open');echAdvb.setAttribute('aria-expanded',o?'true':'false');});
+  [echListEl,echSuffixEl].forEach(function(el){el.addEventListener('input',function(){saveEchPrefs();if(!echRes.hidden&&echInp.value.trim())debounced();});});
+  $('ech-rst').addEventListener('click',function(){echListEl.value=ECH_DEF.list;echSuffixEl.value=ECH_DEF.suffix;saveEchPrefs();if(!echRes.hidden&&echInp.value.trim())runProcess(false);flash(this,'بازنشانی شد');});
+  $('ech-clr').addEventListener('click',function(){echInp.value='';updateCount();echInp.focus();flash(this,'پاک شد');echRes.hidden=true;echOut.value='';echSum.textContent='—';echOcnt.textContent='۰';echErrs.innerHTML='';setBtns(false);echNormalOut='';resetJson();});
+  $('ech-pst').addEventListener('click',function(){var b=this;if(!navigator.clipboard||!navigator.clipboard.readText){echInp.focus();flash(b,'Ctrl+V','no');return;}navigator.clipboard.readText().then(function(t){if(t){echInp.value=(echInp.value.trim()?echInp.value.trim()+'\n':'')+t.trim();updateCount();flash(b,'اضافه شد');}else flash(b,'کلیپ‌بورد خالی','no');}).catch(function(){echInp.focus();flash(b,'Ctrl+V','no');});});
+  $('ech-fbt').addEventListener('click',function(){$('ech-fin').click();});
+  $('ech-fin').addEventListener('change',function(){var f=this.files&&this.files[0];this.value='';if(!f)return;var r=new FileReader();r.onload=function(){var txt=String(r.result||'').trim();echInp.value=(echInp.value.trim()?echInp.value.trim()+'\n':'')+txt;updateCount();runProcess(true);};r.readAsText(f);});
+  ['dragenter','dragover'].forEach(function(ev){echDz.addEventListener(ev,function(e){e.preventDefault();echInp.classList.add('drag');});});
+  ['dragleave','drop'].forEach(function(ev){echDz.addEventListener(ev,function(e){e.preventDefault();echInp.classList.remove('drag');});});
+  echDz.addEventListener('drop',function(e){var f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f){var r=new FileReader();r.onload=function(){echInp.value=String(r.result||'').trim();updateCount();runProcess(true);};r.readAsText(f);return;}var t=e.dataTransfer&&e.dataTransfer.getData('text');if(t){echInp.value=t.trim();updateCount();runProcess(true);}});
+
+  echCpy.addEventListener('click',function(){var b=this;var c=echIsJson?echJsonOut:echNormalOut;if(!c)return;copyText(c).then(function(ok){flash(b,ok?'کپی شد':'ناموفق',ok?'ok':'no');});});
+  echDl.addEventListener('click',function(){var c=echIsJson?echJsonOut:echNormalOut;if(!c)return;var blob=new Blob([c+'\n'],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='ech-'+Date.now()+(echIsJson?'.json':'.txt');document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url);},1500);flash(this,'ذخیره شد');});
+  $('ech-crs').addEventListener('click',function(){echOut.value='';echErrs.innerHTML='';echSum.textContent='—';echOcnt.textContent='۰';echRes.hidden=true;setBtns(false);echNormalOut='';resetJson();});
+
+  function buildEchJson(type,cfg,echValue,remark){
+    var params={};cfg.p.forEach(function(x){params[x.k.toLowerCase()]=x.v;});
+    var address=cfg.host;var port=parseInt(cfg.port,10)||443;var isTrojan=type==='trojan';
+    var net=params.type||'ws';var sec=params.security||'tls';
+    var ss=buildStreamSettings(params,net,sec,echValue,address);
+    var mux=buildMux(params);
+    var hosts={"domain:googleapis.cn":"googleapis.com","dns.alidns.com":["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"],"dns.sse.cisco.com":["208.67.220.220","208.67.222.222","2620:119:35::35","2620:119:53::53"],"dns.umbrella.com":["208.67.220.220","208.67.222.222","2620:119:35::35","2620:119:53::53"],"one.one.one.one":["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"],"1dot1dot1dot1.cloudflare-dns.com":["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"],"dns.cloudflare.com":["162.159.61.8","172.64.41.8","2a06:98c1:52::8","2803:f800:53::8"],"cloudflare-dns.com":["104.16.248.249","104.16.249.249","2606:4700::6810:f8f9","2606:4700::6810:f9f9"],"engage.cloudflareclient.com":["162.159.192.1","2606:4700:d0::a29f:c001"],"doh.pub":["1.12.12.12","120.53.53.53"],"dot.pub":["1.12.12.12","120.53.53.53"],"dns.google":["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"],"dns.quad9.net":["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"],"dns.sb":["45.11.45.11","185.222.222.222","2a09::","2a11::"],"common.dot.dns.yandex.net":["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]};
+    if(isTrojan&&address==='www.speedtest.net'){hosts['www.speedtest.net']=['104.17.148.22','104.17.147.22'];}
+    var dns={hosts:hosts,servers:["https://cloudflare-dns.com/dns-query",{address:"223.5.5.5",domains:["geosite:private"],skipFallback:true,tag:"domestic-dns_0_0"},{address:"223.5.5.5",domains:["domain:ir","geosite:category-ir"],skipFallback:true,tag:"domestic-dns_1_0"}],tag:"dns-module"};
+    var inbounds=[{listen:"127.0.0.1",port:10808,protocol:"socks",settings:{auth:"noauth",udp:true,userLevel:8},sniffing:{destOverride:["http","tls","quic"],enabled:true,routeOnly:false},tag:"socks"}];
+    var settings=isTrojan?{address:address,level:8,password:cfg.pass,port:port}:{address:address,encryption:"none",id:cfg.id,level:8,port:port};
+    var outbounds=[{mux:mux,protocol:isTrojan?"trojan":"vless",settings:settings,streamSettings:ss,tag:"proxy"},{protocol:"freedom",streamSettings:{network:"tcp",sockopt:{domainStrategy:"UseIP"}},tag:"direct"},{protocol:"blackhole",settings:{},tag:"block"}];
+    var policy={levels:{"8":{connIdle:300,downlinkOnly:1,handshake:4,uplinkOnly:1}},system:{statsOutboundUplink:true,statsOutboundDownlink:true}};
+    var routing={domainStrategy:"AsIs",rules:[{network:"udp",outboundTag:"block",port:"443",type:"field"},{ip:["ext:geoip-only-cn-private.dat:private"],outboundTag:"direct",type:"field"},{domain:["geosite:private"],outboundTag:"direct",type:"field"},{domain:["domain:ir","geosite:category-ir"],outboundTag:"direct",type:"field"},{ip:["geoip:ir"],outboundTag:"direct",type:"field"},{inboundTag:["domestic-dns_0_0","domestic-dns_1_0"],outboundTag:"direct",type:"field"},{inboundTag:["dns-module"],outboundTag:"proxy",type:"field"}]};
+    return{dns:dns,inbounds:inbounds,log:{loglevel:"warning"},outbounds:outbounds,policy:policy,remarks:remark,routing:routing,stats:{}};
+  }
+
+  function showEmptyPanel(){echRes.hidden=true;echOut.value='';echSum.textContent='—';echOcnt.textContent='۰';echErrs.innerHTML='';setBtns(false);echNormalOut='';resetJson();}
+
+  function buildEchOutputs(configs,initialFailed,echData){
+    var echList=echData.list;var dupIps=echData.dupIps;
+    var parsed=[],failed=initialFailed.slice(),seenKey={},skippedOther=0,echUnsupportedCount=0,yamlHint=false;
+    configs.forEach(function(line){
+      try{
+        if(/^vless:\/\//i.test(line)){
+          var c=parseVless(line);removeParam(c.p,'ech');
+          var p1={};c.p.forEach(function(x){p1[x.k.toLowerCase()]=x.v;});
+          var sec1=p1.security||'tls';
+          var k=['vless',c.id,c.host,c.port,p1.type||'',p1.security||'',p1.sni||'',p1.host||'',p1.path||'',p1.alpn||''].join('|');
+          if(!seenKey[k]){seenKey[k]=1;if(sec1!=='tls')echUnsupportedCount++;parsed.push({type:'vless',cfg:c,originalName:dec(c.f||'')});}
+        }else if(/^trojan:\/\//i.test(line)){
+          var t=parseTrojan(line);removeParam(t.p,'ech');
+          var p2={};t.p.forEach(function(x){p2[x.k.toLowerCase()]=x.v;});
+          var sec2=p2.security||'tls';
+          var k2=['trojan',t.pass,t.host,t.port,p2.type||'',p2.security||'',p2.sni||'',p2.host||'',p2.path||'',p2.alpn||''].join('|');
+          if(!seenKey[k2]){seenKey[k2]=1;if(sec2!=='tls')echUnsupportedCount++;parsed.push({type:'trojan',cfg:t,originalName:dec(t.f||'')});}
+        }else if(PROTO_START.test(line)){skippedOther++;}
+        else{if(looksLikeYaml(line))yamlHint=true;skippedOther++;}
+      }catch(e){failed.push(String(line).slice(0,70)+(line.length>70?'…':'')+' — '+e.message);}
+    });
+
+    function cloneCfg(c){return{proto:c.proto,id:c.id,pass:c.pass,host:c.host,port:c.port,f:c.f,p:c.p.map(function(x){return{k:x.k,v:x.v};})};}
+    var suffix=echSuffixEl.value;
+    var normal=[],jsonArr=[],total=0;
+    parsed.forEach(function(item,ci){
+      echList.forEach(function(ech,ei){
+        try{
+          var c=cloneCfg(item.cfg);
+          setParam(c.p,'ech',ech);
+          var pp={};c.p.forEach(function(x){pp[x.k.toLowerCase()]=x.v;});
+          if(!pp.security)setParam(c.p,'security','tls');
+          if(item.type==='vless'&&!pp.encryption)setParam(c.p,'encryption','none');
+          var base=item.originalName||(c.host+(c.port?':'+c.port:''));
+          var hasPh=/\{(ip|n|domain)\}/i.test(suffix);
+          var nm=suffix.replace(/\{ip\}/gi,extractIpFromEch(ech)).replace(/\{domain\}/gi,extractDomainFromEch(ech)).replace(/\{n\}/gi,String(ei+1));
+          var name=base+nm+(hasPh?'':'.ech'+(ei+1));
+          c.f=encodeURIComponent(name);
+          normal.push(item.type==='vless'?buildVless(c,ORDER_ECH):buildTrojan(c,ORDER_ECH));
+          jsonArr.push(buildEchJson(item.type,c,ech,name));
+          total++;
+        }catch(e){failed.push((item.cfg.host||'?')+' — '+e.message);}
+      });
+    });
+    return{normal:normal,jsonArr:jsonArr,total:total,cfgCount:parsed.length,echCount:echList.length,failed:failed,
+      skippedOther:skippedOther,echUnsupportedCount:echUnsupportedCount,yamlHint:yamlHint,dupIps:dupIps};
+  }
+
+  var JSON_ICON='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17v1a2 2 0 002 2h12a2 2 0 002-2v-1"/><polyline points="8 12 12 8 16 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>';
+  function setJsonLabel(){
+    var html=JSON_ICON+(echIsJson?' نمایش لینک‌ها':' خروجی JSON');
+    echJsonBtn.innerHTML=html;echJsonBtn.setAttribute('data-orig-html',html);
+  }
+  function applyView(){
+    var txt=echIsJson?echJsonOut:echNormalOut;
+    echOut.value=echIsJson?truncateForDisplay(txt,2500):truncateForDisplay(txt,300);
+    echOut.style.direction='ltr';
+    setJsonLabel();
+  }
+  echJsonBtn.addEventListener('click',function(){
+    if(!echJsonOut&&!echNormalOut)return;
+    echIsJson=!echIsJson;applyView();
+  });
+
+  function setGoRunning(on){
+    echGo._running=on;
+    if(on){
+      if(!echGo._orig)echGo._orig=echGo.innerHTML;
+      echGo.innerHTML='لغو دریافت ساب…';
+    }else if(echGo._orig){
+      echGo.innerHTML=echGo._orig;echGo._orig=null;
+    }
+  }
+
+  function render(r){
+    echRes.hidden=false;
+    echNormalOut=r.normal.join('\n');
+    echJsonOut=r.jsonArr.length?JSON.stringify(r.jsonArr,null,2):'';
+    if(!echJsonOut)echIsJson=false;
+    echOcnt.textContent=fa(r.total);
+    var parts=[];
+    if(r.total){parts.push(fa(r.cfgCount)+' کانفیگ × '+fa(r.echCount)+' ECH = '+fa(r.total)+' خروجی');}
+    else{parts.push('کانفیگ معتبر vless/trojan پیدا نشد');}
+    if(r.echUnsupportedCount)parts.push(fa(r.echUnsupportedCount)+' کانفیگ بدون TLS (ECH اثری ندارد)');
+    if(r.skippedOther)parts.push(fa(r.skippedOther)+' پروتکل پشتیبانی‌نشده');
+    if(r.dupIps)parts.push(fa(r.dupIps)+' ECH با IP تکراری');
+    echSum.textContent=parts.join(' · ');
+    var errs=r.failed.slice(0,20).map(function(f){return'<div class="er">'+esc(f)+'</div>';});
+    if(r.failed.length>20)errs.push('<div class="er">… و '+fa(r.failed.length-20)+' خطای دیگر</div>');
+    if(r.yamlHint&&!r.total)errs.push('<div class="er">ورودی YAML/Clash است؛ لینک‌های vless:// یا trojan:// را وارد کنید.</div>');
+    echErrs.innerHTML=errs.join('');
+    setBtns(!!r.total);
+    applyView();
+    if(lastProcessScroll){try{echRes.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){try{echRes.scrollIntoView();}catch(e2){}}}
+  }
+
+  function finish(allConfigs,failed,echData,ct){
+    if(ct&&ct.cancelled){failed.push('دریافت ساب لغو شد');}
+    var seen={},uniq=[];
+    allConfigs.forEach(function(c){if(!seen[c]){seen[c]=1;uniq.push(c);}});
+    render(buildEchOutputs(uniq,failed,echData));
+  }
+
+  function done(){
+    echRunning=false;setGoRunning(false);echGo._cancelToken=null;
+    if(echPendingRerun){echPendingRerun=false;runProcess(false);}
+  }
+
+  function processEch(){
+    if(echRunning){echPendingRerun=true;return;}
+    var text=echInp.value;
+    if(!text.trim()){showEmptyPanel();flash(echGo,'ورودی خالی است','no');return;}
+    var echData=getEchList();
+    if(!echData.list.length){
+      if(!echAdv.classList.contains('open')){echAdv.classList.add('open');echAdvb.setAttribute('aria-expanded','true');}
+      showEmptyPanel();flash(echGo,'لیست ECH خالی است','no');echListEl.focus();return;
+    }
+    echRunning=true;
+    var ex;
+    try{ex=extract(text);}catch(e){ex={configs:[],subs:[],yamlDetected:false};}
+    var subs=[],sseen={};
+    findSubUrls(text.split(/\r?\n/).map(function(l){return l.trim();})).concat(ex.subs).forEach(function(u){if(!sseen[u]){sseen[u]=1;subs.push(u);}});
+    var allConfigs=ex.configs.slice(),failed=[];
+    if(!subs.length){finish(allConfigs,failed,echData,null);done();return;}
+    var ct=makeCancelToken();echGo._cancelToken=ct;setGoRunning(true);
+    fetchSubsDeep(subs,SUB_FETCH_DEPTH,{},allConfigs,failed,ct).then(function(){finish(allConfigs,failed,echData,ct);}).catch(function(e){failed.push('خطا: '+(e&&e.message||e));finish(allConfigs,failed,echData,ct);}).then(done,done);
+  }
+
+  /* expose for the handlers defined above (function declarations are hoisted in this scope) */
+})();
+
+/* THEME + FOOTER YEAR */
+(function(){
+  var root=document.documentElement,btn=$('th'),mtc=$('mtc'),yr=$('yr');
+  if(yr)yr.textContent=new Date().getFullYear();
+  function sync(){if(mtc)mtc.setAttribute('content',root.getAttribute('data-theme')==='light'?'#f5f8fd':'#070b12');}
+  sync();
+  if(btn)btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='light'?'dark':'light';
+    root.className+=' tz';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('vpn_theme',next);}catch(e){}
+    sync();
+    setTimeout(function(){root.className=root.className.replace(/\s*\btz\b/g,'');},500);
+  });
+})();
+
+})();
+</script>
+</body>
+</html>
